@@ -1,3 +1,4 @@
+require("dotenv").config()
 import express from "express"
 import mongoose from "mongoose"
 import cors from "cors"
@@ -13,7 +14,10 @@ app.use(
 )
 app.use(express.json())
 
-mongoose.connect("mongodb://127.0.0.1:27017/staysphere")
+mongoose
+  .connect(process.env.MONGO_URI)
+  .then(() => console.log("MongoDB Connected"))
+  .catch((err) => console.log(err))
 .then(() => {
   console.log("MongoDB Connected")
 })
